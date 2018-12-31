@@ -8,7 +8,7 @@ def transfer_annotations(input_name, output_name):
     for input_line in input_lines:
         input_line = input_line.rstrip()
         annotations = input_line.split(' ')
-        image_name = '../../pedestrian_detection_trainval/train/' + annotations[0]
+        image_name = 'val/' + annotations[0]
         for k in range(len(annotations)):
             if k == 0:
                 continue
@@ -43,9 +43,10 @@ def transfer_classes(output_name):
 
 
 def main():
-    transfer_annotations("../pedestrian_detection_trainval/train_annotations.txt", "../pedestrian_detection_trainval/train_annotations.csv")
-    transfer_classes("../pedestrian_detection_trainval/train_classes.csv")
-
+    #transfer_annotations("../pedestrian_detection_trainval/train_annotations.txt", "../pedestrian_detection_trainval/train_annotations.csv")
+    #transfer_classes("../pedestrian_detection_trainval/train_classes.csv")
+    transfer_annotations("../pedestrian_detection_trainval/val_annotations.txt", "../pedestrian_detection_trainval/val_annotations.csv")
+    transfer_classes("../pedestrian_detection_trainval/val_classes.csv")
 
 if __name__ == '__main__':
     main()

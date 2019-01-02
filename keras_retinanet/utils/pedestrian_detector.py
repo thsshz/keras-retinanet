@@ -25,7 +25,7 @@ import cv2
 import progressbar
 assert(callable(progressbar.progressbar)), "Using wrong progressbar module, install 'progressbar2' instead."
 
-def _get_detections(generator, model, score_threshold=0.001, max_detections=100, save_path=None):
+def _get_detections(generator, model, score_threshold=0.05, max_detections=100, save_path=None):
     """ Get the detections from the model using the generator.
 
     The result is a list of lists such that the size is:
@@ -86,7 +86,7 @@ def detector(
     generator,
     model,
     iou_threshold=0.5,
-    score_threshold=0.001,
+    score_threshold=0.05,
     max_detections=100,
     save_path=None
 ):
@@ -110,6 +110,8 @@ def detector(
         detections = all_detections[i]
         image_name = generator.image_path(i).split('/')[-1]
         for detection in detections:
+            if detection[5] == 2:
+                continue
             result = image_name + ' '
             result = result + '%.3f' % detection[4] + ' '
             result = result + '%.1f' % detection[0] + ' '

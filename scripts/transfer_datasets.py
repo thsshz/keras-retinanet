@@ -1,14 +1,14 @@
 import csv
 
 
-def transfer_annotations(input_name, output_name):
-    input_file = open(input_name, "r")
+def transfer_annotations(input_name, output_name, pre_dir):
+    input_file = open(input_name, 'r')
     input_lines = input_file.readlines()
     output_lines = []
     for input_line in input_lines:
         input_line = input_line.rstrip()
         annotations = input_line.split(' ')
-        image_name = 'val/' + annotations[0]
+        image_name = pre_dir + annotations[0]
         for k in range(len(annotations)):
             if k == 0:
                 continue
@@ -27,7 +27,6 @@ def transfer_annotations(input_name, output_name):
         if k == 0:
             output_lines.append((image_name, '', '', '', '', ''))
     input_file.close()
-
     with open(output_name, 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file)
         for output_line in output_lines:
@@ -43,10 +42,11 @@ def transfer_classes(output_name):
 
 
 def main():
-    #transfer_annotations("../pedestrian_detection_trainval/train_annotations.txt", "../pedestrian_detection_trainval/train_annotations.csv")
-    #transfer_classes("../pedestrian_detection_trainval/train_classes.csv")
-    transfer_annotations("../pedestrian_detection_trainval/val_annotations.txt", "../pedestrian_detection_trainval/val_annotations.csv")
+    transfer_annotations("../pedestrian_detection_trainval/train_annotations.txt", "../pedestrian_detection_trainval/train_annotations.csv", "train/")
+    transfer_classes("../pedestrian_detection_trainval/train_classes.csv")
+    transfer_annotations("../pedestrian_detection_trainval/val.txt", "../pedestrian_detection_trainval/val.csv", "val/")
     transfer_classes("../pedestrian_detection_trainval/val_classes.csv")
 
 if __name__ == '__main__':
     main()
+
